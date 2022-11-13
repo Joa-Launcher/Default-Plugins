@@ -1,0 +1,16 @@
+﻿using Github.Providers;
+using JoaLauncher.Api;
+
+namespace Github.SearchResults;
+
+public class RepositoriesSearchResult : ISearchResult
+{
+    public string Title { get; init; }
+    public string Description { get; init; }
+    public string Icon { get; init; }
+    public List<ContextAction>? Actions { get; init; }
+    public void Execute(IExecutionContext executionContext)
+    {
+        executionContext.AddStepBuilder().AddProvider<RepositoriesProvider>(executionContext);
+    }
+}

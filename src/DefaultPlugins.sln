@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.ApplicationSearch", "Plugin.ApplicationSearch\Plugin.ApplicationSearch.csproj", "{562FDE4F-C8B6-45FB-9DFB-770875A7A413}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.BookmarksSearch", "Plugin.BookmarksSearch\Plugin.BookmarksSearch.csproj", "{CA29C074-799B-4477-98F2-C315D05CFECB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.ColorConverter", "Plugin.ColorConverter\Plugin.ColorConverter.csproj", "{D4E4F95C-A1F3-4C59-AEC0-AECF7FC4BD1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Github", "Plugin.Github\Plugin.Github.csproj", "{B00E2087-09DF-4266-8CAC-F130294A9480}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.TauriUi", "Plugin.TauriUi\Plugin.TauriUi.csproj", "{E5B62BA7-85B2-419E-A928-740487061655}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.WebSearch", "Plugin.WebSearch\Plugin.WebSearch.csproj", "{A46E6626-0CF0-4483-A0D1-5D0324C287A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{562FDE4F-C8B6-45FB-9DFB-770875A7A413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562FDE4F-C8B6-45FB-9DFB-770875A7A413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA29C074-799B-4477-98F2-C315D05CFECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA29C074-799B-4477-98F2-C315D05CFECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4E4F95C-A1F3-4C59-AEC0-AECF7FC4BD1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4E4F95C-A1F3-4C59-AEC0-AECF7FC4BD1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B00E2087-09DF-4266-8CAC-F130294A9480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B00E2087-09DF-4266-8CAC-F130294A9480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5B62BA7-85B2-419E-A928-740487061655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5B62BA7-85B2-419E-A928-740487061655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A46E6626-0CF0-4483-A0D1-5D0324C287A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A46E6626-0CF0-4483-A0D1-5D0324C287A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal
