@@ -9,14 +9,10 @@
         <RootNamespace>BookmarksSearch</RootNamespace>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <OutputPath>..\Joa\bin\Debug\net7.0\Plugins\BookmarksSearch\</OutputPath>
+    <PropertyGroup>
+        <OutputPath>..\PluginBuilds\BookmarksSearch\</OutputPath>
     </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <OutputPath>..\Joa\bin\Release\net7.0\Plugins\BookmarksSearch\</OutputPath>
-    </PropertyGroup>
-
+    
     <ItemGroup>
         <PackageReference Include="JoaLauncher.Api" Version="1.0.0">
             <Private>false</Private>

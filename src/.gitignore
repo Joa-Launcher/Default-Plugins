@@ -323,6 +323,8 @@ paket-files/
 # FAKE - F# Make
 .fake/
 
+PluginBuilds/
+
 # CodeRush personal settings
 .cr/personal
 

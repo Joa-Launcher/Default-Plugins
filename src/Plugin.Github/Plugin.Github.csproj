@@ -9,12 +9,8 @@
         <RootNamespace>Github</RootNamespace>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <OutputPath>..\Joa\bin\Debug\net7.0\Plugins\Github\</OutputPath>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <OutputPath>..\Joa\bin\Release\net7.0\Plugins\Github\</OutputPath>
+    <PropertyGroup>
+        <OutputPath>..\PluginBuilds\Github\</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>

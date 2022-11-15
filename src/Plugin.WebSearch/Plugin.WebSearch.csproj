@@ -9,12 +9,8 @@
         <RootNamespace>WebSearch</RootNamespace>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <OutputPath>..\Joa\bin\Debug\net7.0\Plugins\WebSearch\</OutputPath>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <OutputPath>..\Joa\bin\Release\net7.0\Plugins\WebSearch\</OutputPath>
+    <PropertyGroup>
+        <OutputPath>..\PluginBuilds\WebSearch\</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>

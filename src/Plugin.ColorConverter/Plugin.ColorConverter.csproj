@@ -9,12 +9,8 @@
         <RootNamespace>ColorConverter</RootNamespace>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <OutputPath>..\Joa\bin\Debug\net7.0\Plugins\ColorConverter\</OutputPath>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <OutputPath>..\Joa\bin\Release\net7.0\Plugins\ColorConverter\</OutputPath>
+    <PropertyGroup>
+        <OutputPath>..\PluginBuilds\ColorConverter\</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>

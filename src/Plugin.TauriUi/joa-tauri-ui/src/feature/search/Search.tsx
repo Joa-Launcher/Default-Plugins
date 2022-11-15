@@ -1,51 +1,85 @@
 import React, {useEffect, useState} from 'react';
-import {useWindow} from "./services/windowService";
-import {executeCommand, useCommands, useSelectedCommand} from "./services/searchService";
+import {executeCommand, windowHeight, windowWidth} from "./services/windowService";
 import {FeatureProps} from "../../featureProps";
 import PluginCommand from "./models/pluginCommand";
+import {receiveSearchResultsMethod, updateCommandsMethod} from "./models/JoaMethods";
+import {convertFileSrc} from "@tauri-apps/api/tauri";
+import {appWindow, LogicalSize} from "@tauri-apps/api/window";
 
 interface Step {
     name: string,
     id: string
 }
 
+let scores: { [key: string]: number } = {};
+
+
 export default (props: FeatureProps) => {
     const [ searchString, setSearchString ] = useState<string>("");
     const [ steps, setSteps ] = useState<string[]>([]);
+    const [ activeIndex, setActiveIndex ] = useState(0);
+    const [ searchResults, setSearchResults ] = useState<PluginCommand[]>([]);
 
-    const clearSearchString = () => {
-      setSearchString("");
-    }
-    const [ commands, updateCommands, clearCommands ] = useCommands(props.connection, searchString);
-    const [ selectedCommandIndex, moveUp, moveDown, clearSelectedCommand ] = useSelectedCommand(commands);
-    const [ updateSize ] = useWindow(props.connection, clearCommands, clearSelectedCommand, clearSearchString);
-
-    const handleInputKeyPress = (e : React.KeyboardEvent) => {
-        switch (e.key) {
+    const handleKeyIndput = async (event: KeyboardEvent) => {
+        switch (event.key) {
             case 'ArrowDown':
-                moveDown();
+                if(activeIndex < searchResults.length)
+                    setActiveIndex(activeIndex + 1);
                 break;
             case 'ArrowUp':
-                moveUp();
+                if(activeIndex > 0)
+                    setActiveIndex(activeIndex - 1);
                 break;
             case 'Enter':
-                executeCommand(props.connection, commands[selectedCommandIndex])
+                executeCommand(props.connection, searchResults[activeIndex]);
                 break;
+            case 'Escape':
+                await hideSearchWindow();
         }
     }
 
+    const hideSearchWindow = async () => {
+        await appWindow.hide()
+        setSearchResults([]);
+        setActiveIndex(0)
+        setSearchString("");
+    }
+
     useEffect(() => {
-        updateCommands(searchString);
+        props.connection.on(receiveSearchResultsMethod, (searchString: string, commands: PluginCommand[]) => {
+            console.log(Date.now() - scores[searchString]);
+            console.log(commands.length);
+            const firstNCommands = commands.slice(0,8);
+            firstNCommands.forEach((x) => {
+                if(x.searchResult.icon === "" || x.searchResult.webIcon !== undefined)
+                    return;
+                x.searchResult.webIcon = convertFileSrc(x.searchResult.icon);
+            })
+            setSearchResults(firstNCommands);
+        });
+
+        document.addEventListener('keydown', handleKeyIndput);
+        let unlistenFn: () => void;
+        appWindow.listen('tauri://blur', ({event, payload}) => hideSearchWindow()).then((x: () => void) => unlistenFn = x);
+        return () => {
+            document.removeEventListener('keydown', handleKeyIndput);
+            unlistenFn();
+        };
+    }, []);
+
+    useEffect(() => {
+        scores[searchString] = Date.now();
+        props.connection.send(updateCommandsMethod, searchString).then();
     }, [searchString])
 
     useEffect(() => {
-        updateSize(commands.length);
-        clearSelectedCommand();
-    }, [commands])
+        appWindow.setSize(new LogicalSize(windowWidth, windowHeight + 50 * searchResults.length)).then();
+        setActiveIndex(0);
+    }, [searchResults])
 
     return (
       <>
-          <div className="w-full  h-[60px] text-userInputText flex bg-userInputBackground items-center overflow-hidden" data-tauri-drag-region>
+          <div className="w-full h-[60px] text-userInputText flex bg-userInputBackground items-center overflow-hidden" data-tauri-drag-region>
               <svg className="fill-userInputText w-[28px] h-[28px] m-[16px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" version="1.1" data-tauri-drag-region>
                   <g id="surface1">
                       <path
@@ -55,12 +89,11 @@ export default (props: FeatureProps) => {
               <input className="appearance-none focus:outline-none w-full h-full bg-userInputBackground text-[24px] font-[200] overflow-hidden" type="text" data-tauri-drag-region
                      value={searchString}
                      onChange={(e : any) => setSearchString(e.target.value)}
-                     onKeyDown={handleInputKeyPress}
                      autoFocus
               />
           </div>
-          { commands.map((pluginCommand : PluginCommand, index : number) =>
-            <div key={pluginCommand.commandId} className={`w-full h-[50px] text-userInputText ${index == selectedCommandIndex ? 'bg-searchResultActiveBackground' : 'bg-searchResultBackground' } items-center flex`}>
+          { searchResults.map((pluginCommand : PluginCommand, index : number) =>
+            <div key={pluginCommand.commandId} className={`w-full h-[50px] text-userInputText ${index == activeIndex ? 'bg-searchResultActiveBackground' : 'bg-searchResultBackground' } items-center flex`}>
                 <div className="w-[60px] h-full flex items-center justify-center">
                     <img src={pluginCommand.searchResult.webIcon} alt=""/>
                 </div>

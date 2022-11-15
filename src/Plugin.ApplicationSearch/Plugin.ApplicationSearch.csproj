@@ -9,12 +9,8 @@
         <RootNamespace>ApplicationSearch</RootNamespace>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <OutputPath>..\Joa\bin\Debug\net7.0\Plugins\ApplicationSearch\</OutputPath>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <OutputPath>..\Joa\bin\Release\net7.0\Plugins\ApplicationSearch\</OutputPath>
+    <PropertyGroup>
+        <OutputPath>..\PluginBuilds\ApplicationSearch\</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>
