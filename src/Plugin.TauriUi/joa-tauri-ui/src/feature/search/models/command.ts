@@ -1,5 +1,5 @@
 export default interface Command {
-    caption: string,
+    title: string,
     description: string,
     icon: string,
     webIcon: string

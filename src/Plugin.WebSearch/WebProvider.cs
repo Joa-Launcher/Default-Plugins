@@ -34,7 +34,7 @@ public class WebProvider : IProvider
                 Title = searchEngine.Name,
                 Description = $"Search on {searchEngine.Name} for \"{searchString}\"",
                 Icon = "",
-                Url = ""
+                Url = searchEngine.Url.Replace("{{query}}", searchString)
             }
         };
 

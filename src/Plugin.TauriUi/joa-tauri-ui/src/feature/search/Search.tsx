@@ -65,7 +65,7 @@ export default (props: FeatureProps) => {
                     <img src={pluginCommand.searchResult.webIcon} alt=""/>
                 </div>
                 <div>
-                    <p className="text-[17px] text-searchResultNameText">{pluginCommand.searchResult.caption}</p>
+                    <p className="text-[17px] text-searchResultNameText">{pluginCommand.searchResult.title}</p>
                     <p className="text-[12px] text-searchResultDescriptionText whitespace-nowrap">{pluginCommand.searchResult.description}</p>
                 </div>
             </div>
