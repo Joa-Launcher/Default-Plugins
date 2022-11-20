@@ -1,4 +1,5 @@
-﻿using JoaLauncher.Api;
+﻿using System.Web;
+using JoaLauncher.Api;
 using JoaLauncher.Api.Injectables;
 
 namespace WebSearch;

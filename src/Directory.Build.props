@@ -1,5 +1,7 @@
 <Project>
  <PropertyGroup>
    <OutputPath>..\PluginBuilds\$(MSBuildProjectName)</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>flase</AppendRuntimeIdentifierToOutputPath>
  </PropertyGroup>
 </Project>

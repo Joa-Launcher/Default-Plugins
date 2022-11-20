@@ -7,7 +7,7 @@
         <EnableDynamicLoading>true</EnableDynamicLoading>
         <RootNamespace>Github</RootNamespace>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <PackageReference Include="JoaLauncher.Api" Version="1.0.0">
             <Private>false</Private>

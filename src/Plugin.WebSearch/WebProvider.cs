@@ -1,6 +1,7 @@
-﻿using JoaLauncher.Api;
+﻿using System.Text.Json;
+using System.Web;
+using JoaLauncher.Api;
 using JoaLauncher.Api.Providers;
-using Newtonsoft.Json;
 
 namespace WebSearch;
 
@@ -33,7 +34,7 @@ public class WebProvider : IProvider
             {
                 Title = searchEngine.Name,
                 Description = $"Search on {searchEngine.Name} for \"{searchString}\"",
-                Icon = "",
+                Icon = "", 
                 Url = searchEngine.Url.Replace("{{query}}", searchString)
             }
         };
@@ -47,10 +48,10 @@ public class WebProvider : IProvider
                 .Replace("{{query}}",searchString))
             .GetAwaiter().GetResult();
 
-        dynamic response = JsonConvert.DeserializeObject(httpResponse.Content.ReadAsStringAsync().GetAwaiter()
-            .GetResult()) ?? throw new InvalidOperationException();
+        var jsonDocument = JsonDocument.Parse(httpResponse.Content.ReadAsStringAsync().GetAwaiter()
+            .GetResult());
         
-        List<string> suggestions = response[1].ToObject<List<string>>();
+        var suggestions = jsonDocument.RootElement[1].EnumerateArray().Select(x => x.ToString()).ToList();
         
         searchResults.AddRange(suggestions.Select(suggestion 
                 => new WebSearchResult
@@ -58,7 +59,7 @@ public class WebProvider : IProvider
                     Title = suggestion,
                     Description = $"Search on Google for \"{suggestion}\"",
                     Icon = "",
-                    Url = searchEngine.Url.Replace("{{query}}", suggestion)
+                    Url = searchEngine.Url.Replace("{{query}}", HttpUtility.UrlEncode(suggestion))
                 })
             .ToList());
         

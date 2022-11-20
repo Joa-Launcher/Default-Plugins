@@ -6,7 +6,7 @@ import {HubConnection} from "@microsoft/signalr";
 import {useEffect} from "react";
 import {register, unregisterAll} from "@tauri-apps/api/globalShortcut";
 import PluginCommand from "../models/pluginCommand";
-import {executeCommandMethod} from "../models/JoaMethods";
+import {executeSearchResult} from "../models/JoaMethods";
 
 export const windowWidth = 600;
 export const windowHeight = 60;
@@ -40,7 +40,7 @@ export function useActivationKey(){
 }
 
 export function executeCommand(connection: HubConnection, command: PluginCommand) {
-    connection.invoke(executeCommandMethod, command.commandId, "enter")
+    connection.invoke(executeSearchResult, command.commandId, "enter")
         .catch(function (err : any) {
             return console.error(err.toString());
         });

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {executeCommand, windowHeight, windowWidth} from "./services/windowService";
 import {FeatureProps} from "../../featureProps";
 import PluginCommand from "./models/pluginCommand";
-import {receiveSearchResultsMethod, updateCommandsMethod} from "./models/JoaMethods";
+import {addStep, getSteps, goToStep, receiveSearchResults, updateSearchResults} from "./models/JoaMethods";
 import {convertFileSrc} from "@tauri-apps/api/tauri";
 import {appWindow, LogicalSize} from "@tauri-apps/api/window";
 
@@ -16,11 +16,11 @@ let scores: { [key: string]: number } = {};
 
 export default (props: FeatureProps) => {
     const [ searchString, setSearchString ] = useState<string>("");
-    const [ steps, setSteps ] = useState<string[]>([]);
+    const [ steps, setSteps ] = useState<Step[]>([]);
     const [ activeIndex, setActiveIndex ] = useState(0);
     const [ searchResults, setSearchResults ] = useState<PluginCommand[]>([]);
 
-    const handleKeyIndput = async (event: KeyboardEvent) => {
+    const handleKeyIndput = async (event: React.KeyboardEvent) => {
         switch (event.key) {
             case 'ArrowDown':
                 if(activeIndex < searchResults.length)
@@ -43,10 +43,11 @@ export default (props: FeatureProps) => {
         setSearchResults([]);
         setActiveIndex(0)
         setSearchString("");
+        await props.connection.send(goToStep, steps[0])
     }
 
     useEffect(() => {
-        props.connection.on(receiveSearchResultsMethod, (searchString: string, commands: PluginCommand[]) => {
+        props.connection.on(receiveSearchResults, (searchString: string, commands: PluginCommand[]) => {
             console.log(Date.now() - scores[searchString]);
             console.log(commands.length);
             const firstNCommands = commands.slice(0,8);
@@ -58,18 +59,21 @@ export default (props: FeatureProps) => {
             setSearchResults(firstNCommands);
         });
 
-        document.addEventListener('keydown', handleKeyIndput);
+        props.connection.on(addStep, (step: Step) => {
+            setSteps([...steps, step])
+        })
+        props.connection.invoke<Step[]>(getSteps).then((x) => setSteps(x))
+
         let unlistenFn: () => void;
         appWindow.listen('tauri://blur', ({event, payload}) => hideSearchWindow()).then((x: () => void) => unlistenFn = x);
         return () => {
-            document.removeEventListener('keydown', handleKeyIndput);
             unlistenFn();
         };
     }, []);
 
     useEffect(() => {
         scores[searchString] = Date.now();
-        props.connection.send(updateCommandsMethod, searchString).then();
+        props.connection.send(updateSearchResults, searchString).then();
     }, [searchString])
 
     useEffect(() => {
@@ -90,7 +94,16 @@ export default (props: FeatureProps) => {
                      value={searchString}
                      onChange={(e : any) => setSearchString(e.target.value)}
                      autoFocus
+                     onKeyDown={handleKeyIndput}
+
               />
+          </div>
+          <div className={"w-full h-[30px] flex bg-userInputBackground"}>
+              {steps.map((step: Step) =>
+                <div className={"h-[25px] bg-searchResultActiveBackground"}>
+                    {step.name}
+                </div>
+              )}
           </div>
           { searchResults.map((pluginCommand : PluginCommand, index : number) =>
             <div key={pluginCommand.commandId} className={`w-full h-[50px] text-userInputText ${index == activeIndex ? 'bg-searchResultActiveBackground' : 'bg-searchResultBackground' } items-center flex`}>
