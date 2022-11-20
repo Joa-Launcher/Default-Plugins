@@ -5,12 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <EnableDynamicLoading>true</EnableDynamicLoading>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <RootNamespace>BookmarksSearch</RootNamespace>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <OutputPath>..\PluginBuilds\BookmarksSearch\</OutputPath>
     </PropertyGroup>
     
     <ItemGroup>

@@ -1,0 +1,5 @@
+<Project>
+ <PropertyGroup>
+   <OutputPath>..\PluginBuilds\$(MSBuildProjectName)</OutputPath>
+ </PropertyGroup>
+</Project>

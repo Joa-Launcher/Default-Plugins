@@ -5,14 +5,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <EnableDynamicLoading>true</EnableDynamicLoading>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <RootNamespace>Github</RootNamespace>
     </PropertyGroup>
-
-    <PropertyGroup>
-        <OutputPath>..\PluginBuilds\Github\</OutputPath>
-    </PropertyGroup>
-
+    
     <ItemGroup>
         <PackageReference Include="JoaLauncher.Api" Version="1.0.0">
             <Private>false</Private>
