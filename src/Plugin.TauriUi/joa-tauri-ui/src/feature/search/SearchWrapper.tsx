@@ -1,10 +1,11 @@
 import Search from "./Search";
 import {HubConnectionBuilder, HubConnectionState, RetryContext} from "@microsoft/signalr";
-import {useActivationKey} from "./services/windowService";
+import {showWindow} from "./services/windowService";
 import {useEffect, useState} from "react";
+import {register, unregisterAll} from "@tauri-apps/api/globalShortcut";
 
 const connection = new HubConnectionBuilder()
-    .withUrl("http://localhost:5000/searchHub")
+    .withUrl("https://localhost:7141/searchHub")
     .withAutomaticReconnect({
         nextRetryDelayInMilliseconds(retryContext: RetryContext): number | null {
             console.log("retrying...");
@@ -13,8 +14,6 @@ const connection = new HubConnectionBuilder()
     .build();
 
 const SearchWrapper = () => {
-    useActivationKey();
-
     const [connectionState, setConnectionState ] = useState(false);
 
     useEffect(() => {
@@ -31,10 +30,16 @@ const SearchWrapper = () => {
             });
         }).catch();
 
+        unregisterAll().then();
+        register("Alt+P", async () => {
+            await showWindow();
+        }).then();
+
         return () => {
             connection.stop().then(() => {
                 setConnectionState(false);
             });
+            unregisterAll().then();
         }
     }, []);
 

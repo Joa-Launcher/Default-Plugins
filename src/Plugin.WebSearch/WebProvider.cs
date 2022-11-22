@@ -33,9 +33,9 @@ public class WebProvider : IProvider
             new WebSearchResult
             {
                 Title = searchEngine.Name,
-                Description = $"Search on {searchEngine.Name} for \"{searchString}\"",
+                Description = $"Search hallo on {searchEngine.Name} for \"{searchString}\"",
                 Icon = "", 
-                Url = searchEngine.Url.Replace("{{query}}", searchString)
+                Url = searchEngine.Url.Replace("{{query}}", HttpUtility.UrlEncode(searchString))
             }
         };
 

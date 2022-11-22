@@ -11,7 +11,7 @@ import {executeSearchResult} from "../models/JoaMethods";
 export const windowWidth = 600;
 export const windowHeight = 60;
 
-const showWindow = async () => {
+export async function showWindow() {
     const monitor = await primaryMonitor();
     if(!monitor)
         return;
@@ -25,23 +25,4 @@ const showWindow = async () => {
     await appWindow.show();
 
     await appWindow.setFocus();
-}
-
-export function useActivationKey(){
-    useEffect(() => {
-        unregisterAll().then();
-        register("Alt+P", async () => {
-            await showWindow();
-        }).then();
-        return () => {
-            unregisterAll().then();
-        }
-    }, [])
-}
-
-export function executeCommand(connection: HubConnection, command: PluginCommand) {
-    connection.invoke(executeSearchResult, command.commandId, "enter")
-        .catch(function (err : any) {
-            return console.error(err.toString());
-        });
 }
