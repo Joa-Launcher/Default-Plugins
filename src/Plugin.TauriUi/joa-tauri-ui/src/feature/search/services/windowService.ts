@@ -2,14 +2,8 @@ import {
     appWindow,
     PhysicalPosition, primaryMonitor
 } from "@tauri-apps/api/window";
-import {HubConnection} from "@microsoft/signalr";
-import {useEffect} from "react";
-import {register, unregisterAll} from "@tauri-apps/api/globalShortcut";
-import PluginCommand from "../models/pluginCommand";
-import {executeSearchResult} from "../models/JoaMethods";
-
 export const windowWidth = 600;
-export const windowHeight = 60;
+export const windowHeight = 90;
 
 export async function showWindow() {
     const monitor = await primaryMonitor();

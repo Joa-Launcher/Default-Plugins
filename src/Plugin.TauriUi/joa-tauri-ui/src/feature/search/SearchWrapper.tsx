@@ -28,7 +28,13 @@ const SearchWrapper = () => {
             connection.onclose(() => {
                 setConnectionState(false);
             });
+
+            connection.onreconnecting(() => {
+                setConnectionState(false);
+            });
+
         }).catch();
+
 
         unregisterAll().then();
         register("Alt+P", async () => {

@@ -10,6 +10,6 @@ public class RepositoriesProvider : IProvider
     public SearchResultLifetime SearchResultLifetime { get; set; }
     public List<ISearchResult> GetSearchResults(string searchString)
     {
-        throw new NotImplementedException();
+        return new List<ISearchResult>();
     }
 }

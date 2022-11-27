@@ -20,7 +20,6 @@ interface Step {
 
 let scores: { [key: string]: number } = {};
 
-
 export default (props: FeatureProps) => {
     const [searchString, setSearchString] = useState<string>("");
     const [steps, setSteps] = useState<Step[]>([]);
@@ -38,7 +37,7 @@ export default (props: FeatureProps) => {
                     setActiveIndex(activeIndex - 1);
                 break;
             case 'Enter':
-                props.connection.invoke(executeSearchResult, searchResults[activeIndex], "enter")
+                props.connection.invoke(executeSearchResult, searchResults[activeIndex].commandId, "enter")
                     .catch(function (err: any) {
                         return console.error(err.toString());
                     });
@@ -49,11 +48,17 @@ export default (props: FeatureProps) => {
     }
 
     const hideSearchWindow = async () => {
+        if(!await appWindow.isVisible())
+            return;
         await appWindow.hide()
         setSearchResults([]);
         setActiveIndex(0)
         setSearchString("");
-        await props.connection.send(goToStep, steps[0])
+        console.log(steps);
+
+
+        await props.connection.send(goToStep, steps[0].id)
+        setSteps(prevState => [prevState[0]]);
     }
 
     useEffect(() => {
@@ -70,7 +75,7 @@ export default (props: FeatureProps) => {
         });
 
         props.connection.on(addStep, (step: Step) => {
-            setSteps([...steps, step])
+            setSteps(prevSteps => ([...prevSteps, step]))
         })
         props.connection.invoke<Step[]>(getSteps).then((x) => setSteps(x))
 
