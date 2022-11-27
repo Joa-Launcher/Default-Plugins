@@ -8,11 +8,5 @@
         <RootNamespace>Github</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="JoaLauncher.Api" Version="1.0.0">
-            <Private>false</Private>
-            <ExcludeAssets>runtime</ExcludeAssets>
-        </PackageReference>
-    </ItemGroup>
 
 </Project>

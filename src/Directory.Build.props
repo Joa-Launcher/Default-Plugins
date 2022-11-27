@@ -4,4 +4,10 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>flase</AppendRuntimeIdentifierToOutputPath>
  </PropertyGroup>
+     <ItemGroup>
+        <PackageReference Include="JoaLauncher.Api" Version="1.0.3-g2435325add">
+            <Private>false</Private>
+            <ExcludeAssets>runtime</ExcludeAssets>
+        </PackageReference>
+    </ItemGroup>
 </Project>

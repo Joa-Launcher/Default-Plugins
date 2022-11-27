@@ -9,12 +9,7 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <PackageReference Include="JoaLauncher.Api" Version="1.0.0">
-            <Private>false</Private>
-            <ExcludeAssets>runtime</ExcludeAssets>
-        </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
     </ItemGroup>
-
 
 </Project>
