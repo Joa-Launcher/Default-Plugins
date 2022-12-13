@@ -5,13 +5,14 @@ import {useEffect, useState} from "react";
 import {register, unregisterAll} from "@tauri-apps/api/globalShortcut";
 
 const connection = new HubConnectionBuilder()
-    .withUrl("https://localhost:7141/searchHub")
+    .withUrl("http://localhost:7141/searchHub")
     .withAutomaticReconnect({
         nextRetryDelayInMilliseconds(retryContext: RetryContext): number | null {
             console.log("retrying...");
             return 1000;
         }})
     .build();
+
 
 const SearchWrapper = () => {
     const [connectionState, setConnectionState ] = useState(false);
@@ -55,6 +56,7 @@ const SearchWrapper = () => {
 
     return (
         <div>
+
             { connectionState && <Search connection={connection}/>}
         </div>
     );
