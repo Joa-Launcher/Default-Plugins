@@ -13,7 +13,6 @@ import {
 import {convertFileSrc} from "@tauri-apps/api/tauri";
 import {appWindow, LogicalSize} from "@tauri-apps/api/window";
 
-
 interface Step {
     name: string,
     id: string
@@ -128,7 +127,6 @@ export default (props: FeatureProps) => {
                     </div>
                 )}
             </div>
-
             {searchResults.map((pluginCommand: PluginCommand, index: number) =>
                 <div key={pluginCommand.commandId}
                      className={`w-full h-[50px] text-userInputText ${index == activeIndex ? 'bg-searchResultActiveBackground' : 'bg-searchResultBackground'} items-center flex`}>

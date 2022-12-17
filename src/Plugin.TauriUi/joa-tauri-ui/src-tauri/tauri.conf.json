@@ -75,7 +75,7 @@
         "width": 600,
         "decorations": false,
         "skipTaskbar": true,
-        "visible": true
+        "visible": false
       }
     ]
   }
