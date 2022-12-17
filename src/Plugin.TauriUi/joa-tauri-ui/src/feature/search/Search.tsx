@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {windowHeight, windowWidth} from "./services/windowService";
 import {FeatureProps} from "../../featureProps";
-import PluginCommand from "./models/pluginCommand";
+import PluginSearchResult from "./models/pluginSearchResult";
 import {
     addStep,
     executeSearchResult,
@@ -24,7 +24,7 @@ export default (props: FeatureProps) => {
     const [searchString, setSearchString] = useState<string>("");
     const [steps, setSteps] = useState<Step[]>([]);
     const [activeIndex, setActiveIndex] = useState(0);
-    const [searchResults, setSearchResults] = useState<PluginCommand[]>([]);
+    const [searchResults, setSearchResults] = useState<PluginSearchResult[]>([]);
 
     const handleKeyIndput = async (event: React.KeyboardEvent) => {
         switch (event.key) {
@@ -36,19 +36,29 @@ export default (props: FeatureProps) => {
                 if (activeIndex > 0)
                     setActiveIndex(activeIndex - 1);
                 break;
-            case 'Enter':
-                props.connection.invoke(executeSearchResult, searchResults[activeIndex].commandId, "enter")
-                    .catch(function (err: any) {
-                        return console.error(err.toString());
-                    });
-                break;
             case 'Escape':
                 await hideSearchWindow();
         }
+
+        console.log("active", activeIndex)
+        console.log(searchResults)
+        console.log(searchResults[activeIndex].searchResult)
+        console.log(event.key)
+
+        for (const action of searchResults[activeIndex].searchResult.actions) {
+            if (event.key === action.id) {
+                await props.connection.invoke(executeSearchResult, searchResults[activeIndex].commandId, action.id)
+                setSearchResults([]);
+                setActiveIndex(0)
+                setSearchString("");
+                break;
+            }
+        }
     }
 
+
     const hideSearchWindow = async () => {
-        if(!await appWindow.isVisible())
+        if (!await appWindow.isVisible())
             return;
         await appWindow.hide()
         setSearchResults([]);
@@ -62,7 +72,7 @@ export default (props: FeatureProps) => {
     }
 
     useEffect(() => {
-        props.connection.on(receiveSearchResults, (searchString: string, commands: PluginCommand[]) => {
+        props.connection.on(receiveSearchResults, (searchString: string, commands: PluginSearchResult[]) => {
             console.log(Date.now() - scores[searchString]);
             console.log(commands.length);
             const firstNCommands = commands.slice(0, 8);
@@ -128,7 +138,7 @@ export default (props: FeatureProps) => {
                     </div>
                 )}
             </div>
-            {searchResults.map((pluginCommand: PluginCommand, index: number) =>
+            {searchResults.map((pluginCommand: PluginSearchResult, index: number) =>
                 <div key={pluginCommand.commandId}
                      className={`w-full h-[50px] text-userInputText ${index == activeIndex ? 'bg-searchResultActiveBackground' : 'bg-searchResultBackground'} items-center flex`}>
                     <div className="w-[60px] h-full flex items-center justify-center">
@@ -140,6 +150,7 @@ export default (props: FeatureProps) => {
                     </div>
                 </div>
             )}
+
         </>
     );
 }

@@ -18,11 +18,6 @@ public class GithubCache : IAsyncCache
     public async Task UpdateIndexesAsync()
     {
         var repositories = await _github.Repository.GetAllForUser("FlurinBruehwiler");
-        Repositories = repositories.Select(x => new RepositorySearchResult
-        {
-            Title = x.Name,
-            Description = x.Description,
-            Icon = ""
-        }).Cast<SearchResult>().ToList();
+        Repositories = repositories.Select(x => new RepositorySearchResult(x)).Cast<SearchResult>().ToList();
     }
 }
