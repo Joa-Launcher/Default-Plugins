@@ -6,10 +6,15 @@ namespace Github.Providers;
 
 public class RepositoriesProvider : IProvider
 {
-    public List<SearchResult> SearchResults { get; set; }
-    public SearchResultLifetime SearchResultLifetime { get; set; }
+    private readonly GithubCache _githubCache;
+
+    public RepositoriesProvider(GithubCache githubCache)
+    {
+        _githubCache = githubCache;
+    }
+    
     public List<SearchResult> GetSearchResults(string searchString)
     {
-        return new List<SearchResult>();
+        return _githubCache.Repositories;
     }
 }

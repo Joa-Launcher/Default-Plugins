@@ -8,5 +8,9 @@
         <RootNamespace>Github</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Octokit" Version="4.0.3" />
+    </ItemGroup>
+
 
 </Project>
