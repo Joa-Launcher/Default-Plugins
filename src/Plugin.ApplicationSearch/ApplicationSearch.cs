@@ -12,7 +12,7 @@ public class ApplicationSearch : ICache, IProvider, IPlugin
     private readonly IJoaLogger _joaLogger;
     private readonly Settings _settings;
     private readonly IIconHelper _iconHelper;
-    private readonly List<ISearchResult> _searchResults = new();
+    private readonly List<SearchResult> _searchResults = new();
 
 
     public ApplicationSearch(IJoaLogger joaLogger, IIconHelper iconHelper, Settings settings)
@@ -44,7 +44,7 @@ public class ApplicationSearch : ICache, IProvider, IPlugin
 
             var iconLocation = _iconHelper.CreateIconFromFileIfNotExists<ApplicationSearch>(path);
                 
-            _searchResults.Add(new SearchResult
+            _searchResults.Add(new ApplicationSearchResult
             {
                 Title = Path.GetFileNameWithoutExtension(path),
                 Description = "",
@@ -54,7 +54,7 @@ public class ApplicationSearch : ICache, IProvider, IPlugin
         }
     }
 
-    public List<ISearchResult> GetSearchResults(string searchString)
+    public List<SearchResult> GetSearchResults(string searchString)
     {
         return _searchResults;
     }

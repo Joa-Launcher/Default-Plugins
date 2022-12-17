@@ -6,10 +6,10 @@ namespace Github.Providers;
 
 public class RepositoriesProvider : IProvider
 {
-    public List<ISearchResult> SearchResults { get; set; }
+    public List<SearchResult> SearchResults { get; set; }
     public SearchResultLifetime SearchResultLifetime { get; set; }
-    public List<ISearchResult> GetSearchResults(string searchString)
+    public List<SearchResult> GetSearchResults(string searchString)
     {
-        return new List<ISearchResult>();
+        return new List<SearchResult>();
     }
 }

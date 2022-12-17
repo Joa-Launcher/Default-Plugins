@@ -79,14 +79,14 @@ export default (props: FeatureProps) => {
         })
         props.connection.invoke<Step[]>(getSteps).then((x) => setSteps(x))
 
-        let unlistenFn: () => void;
-        appWindow.listen('tauri://blur', ({
-                                              event,
-                                              payload
-                                          }) => hideSearchWindow()).then((x: () => void) => unlistenFn = x);
-        return () => {
-            unlistenFn();
-        };
+        // let unlistenFn: () => void;
+        // appWindow.listen('tauri://blur', ({
+        //                                       event,
+        //                                       payload
+        //                                   }) => hideSearchWindow()).then((x: () => void) => unlistenFn = x);
+        // return () => {
+        //     unlistenFn();
+        // };
     }, []);
 
     useEffect(() => {
@@ -120,9 +120,10 @@ export default (props: FeatureProps) => {
 
                 />
             </div>
-            <div className={"w-full h-[30px] flex bg-userInputBackground"}>
+            <div className={"w-full h-[30px] flex bg-userInputBackground gap-[5px]"}>
+                <div className={"w-0"}></div>
                 {steps.map((step: Step) =>
-                    <div className={"h-[25px] bg-searchResultActiveBackground"}>
+                    <div className={"h-[25px] bg-searchResultActiveBackground text-searchResultNameText px-1 rounded"}>
                         {step.name}
                     </div>
                 )}

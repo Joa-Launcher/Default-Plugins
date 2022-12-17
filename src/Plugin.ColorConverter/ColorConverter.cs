@@ -13,9 +13,9 @@ public class ColorConverter : IPlugin
         return false;
     }
 
-     public List<ISearchResult> GetStrictSearchResults(string searchString)
+     public List<SearchResult> GetStrictSearchResults(string searchString)
      {
-        return new List<ISearchResult>();
+        return new List<SearchResult>();
      }
 
     private string HexToRgb(string hexColor)

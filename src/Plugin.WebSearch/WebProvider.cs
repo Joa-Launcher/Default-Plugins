@@ -16,25 +16,25 @@ public class WebProvider : IProvider
         _client = new HttpClient();
     }
 
-    public List<ISearchResult> GetSearchResults(string searchString)
+    public List<SearchResult> GetSearchResults(string searchString)
     {
         var searchEngine = _settings.SearchEngines.FirstOrDefault(x =>
             searchString.StartsWith(x.Prefix));
 
         if (searchEngine == null || searchString.Length < searchEngine.Prefix.Length)
         {
-            return new List<ISearchResult>();
+            return new List<SearchResult>();
         }
         
         searchString = searchString.Remove(0, searchEngine.Prefix.Length);
         
-        var searchResults = new List<ISearchResult>
+        var searchResults = new List<SearchResult>
         {
             new WebSearchResult
             {
                 Title = searchEngine.Name,
                 Description = $"Search hallo on {searchEngine.Name} for \"{searchString}\"",
-                Icon = "", 
+                Icon = "",
                 Url = searchEngine.Url.Replace("{{query}}", HttpUtility.UrlEncode(searchString))
             }
         };

@@ -12,7 +12,7 @@ public class BookmarksSearch : ICache, IProvider, IPlugin
     private readonly Setting _setting;
     private readonly IJoaLogger _joaLogger;
     private readonly IIconHelper _iconHelper;
-    private List<ISearchResult> _searchResults = new();
+    private List<SearchResult> _searchResults = new();
 
     public BookmarksSearch(Setting setting, IJoaLogger joaLogger, IIconHelper iconHelper)
     {
@@ -35,10 +35,10 @@ public class BookmarksSearch : ICache, IProvider, IPlugin
             Title = x.bookmark.name,
             Description = x.bookmark.url,
             Icon = _iconHelper.CreateIconFromFileIfNotExists<BookmarksSearch>(x.browser.BrowserLocation)
-        }).Cast<ISearchResult>().ToList();
+        }).Cast<SearchResult>().ToList();
     }
 
-    public List<ISearchResult> GetSearchResults(string searchString)
+    public List<SearchResult> GetSearchResults(string searchString)
     { 
         return _searchResults;
     }

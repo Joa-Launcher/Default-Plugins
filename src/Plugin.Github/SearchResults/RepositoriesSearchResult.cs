@@ -3,13 +3,9 @@ using JoaLauncher.Api;
 
 namespace Github.SearchResults;
 
-public class RepositoriesSearchResult : ISearchResult
+public class RepositoriesSearchResult : SearchResult
 {
-    public string Title { get; init; }
-    public string Description { get; init; }
-    public string Icon { get; init; }
-    public List<ContextAction>? Actions { get; init; }
-    public void Execute(IExecutionContext executionContext)
+    public override void Execute(IExecutionContext executionContext)
     {
         executionContext.AddStepBuilder().AddProvider<RepositoriesProvider>();
     }
