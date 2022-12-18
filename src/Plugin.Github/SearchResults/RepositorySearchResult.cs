@@ -22,6 +22,10 @@ public class RepositorySearchResult : SearchResult
     {
         executionContext
             .AddStepBuilder()
-            .AddProvider<RepositoryProvider, Repository>(_repository);
+            .AddProvider<RepositoryProvider, Repository>(_repository)
+            .WithOptions(new StepOptions
+            {
+                ShowSearchResultsAllways = true
+            });
     }
 }

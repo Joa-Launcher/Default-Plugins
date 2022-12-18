@@ -3,9 +3,8 @@ import {windowHeight, windowWidth} from "./services/windowService";
 import {FeatureProps} from "../../featureProps";
 import PluginSearchResult from "./models/pluginSearchResult";
 import {
-    addStep,
+    updateSteps,
     executeSearchResult,
-    getSteps,
     goToStep,
     receiveSearchResults,
     updateSearchResults
@@ -17,8 +16,6 @@ interface Step {
     name: string,
     id: string
 }
-
-let scores: { [key: string]: number } = {};
 
 export default (props: FeatureProps) => {
     const [searchString, setSearchString] = useState<string>("");
@@ -40,74 +37,74 @@ export default (props: FeatureProps) => {
                 await hideSearchWindow();
         }
 
-        console.log("active", activeIndex)
-        console.log(searchResults)
-        console.log(searchResults[activeIndex].searchResult)
-        console.log(event.key)
 
-        for (const action of searchResults[activeIndex].searchResult.actions) {
-            if (event.key === action.id) {
-                await props.connection.invoke(executeSearchResult, searchResults[activeIndex].commandId, action.id)
-                setSearchResults([]);
-                setActiveIndex(0)
-                setSearchString("");
-                break;
+        if(searchResults.length > 0){
+            for (const action of searchResults[activeIndex].searchResult.actions) {
+                if (event.key === action.id) {
+                    await props.connection.invoke(executeSearchResult, searchResults[activeIndex].commandId, action.id)
+                    UpdateSearchString("")
+                    break;
+                }
             }
         }
     }
-
 
     const hideSearchWindow = async () => {
         if (!await appWindow.isVisible())
             return;
         await appWindow.hide()
-        setSearchResults([]);
-        setActiveIndex(0)
-        setSearchString("");
-        console.log(steps);
-
+        UpdateSearchString("");
 
         await props.connection.send(goToStep, steps[0].id)
-        setSteps(prevState => [prevState[0]]);
+        UpdateSteps([steps[0]])
     }
 
     useEffect(() => {
         props.connection.on(receiveSearchResults, (searchString: string, commands: PluginSearchResult[]) => {
-            console.log(Date.now() - scores[searchString]);
-            console.log(commands.length);
             const firstNCommands = commands.slice(0, 8);
             firstNCommands.forEach((x) => {
                 if (x.searchResult.icon === "" || x.searchResult.webIcon !== undefined)
                     return;
                 x.searchResult.webIcon = convertFileSrc(x.searchResult.icon);
             })
-            setSearchResults(firstNCommands);
+            UpdateSearchResults(firstNCommands);
         });
 
-        props.connection.on(addStep, (step: Step) => {
-            setSteps(prevSteps => ([...prevSteps, step]))
-        })
-        props.connection.invoke<Step[]>(getSteps).then((x) => setSteps(x))
+        props.connection.on(updateSteps, (steps: Step[]) => {
+            UpdateSteps(steps);
+        });
+        props.connection.invoke<Step[]>(updateSteps).then();
 
-        // let unlistenFn: () => void;
-        // appWindow.listen('tauri://blur', ({
-        //                                       event,
-        //                                       payload
-        //                                   }) => hideSearchWindow()).then((x: () => void) => unlistenFn = x);
-        // return () => {
-        //     unlistenFn();
-        // };
+        let unlistenFn: () => void;
+        appWindow.listen('tauri://blur', ({
+                                              event,
+                                              payload
+                                          }) => hideSearchWindow()).then((x: () => void) => unlistenFn = x);
+        return () => {
+            unlistenFn();
+        };
     }, []);
 
-    useEffect(() => {
-        scores[searchString] = Date.now();
-        props.connection.send(updateSearchResults, searchString).then();
-    }, [searchString])
+    function UpdateSearchResults(newResults: PluginSearchResult[]) {
+        setSearchResults(newResults);
+        appWindow.setSize(new LogicalSize(windowWidth, windowHeight + 50 * newResults.length)).then();
+    }
+
+    function UpdateSearchString(newString: string) {
+        setSearchString(newString);
+        props.connection.send(updateSearchResults, newString).then();
+        setActiveIndex(0);
+    }
+
+    function UpdateSteps(newSteps: Step[]) {
+        console.log(newSteps)
+        setSteps(newSteps);
+    }
 
     useEffect(() => {
-        appWindow.setSize(new LogicalSize(windowWidth, windowHeight + 50 * searchResults.length)).then();
-        setActiveIndex(0);
-    }, [searchResults])
+        console.log("rerendering")
+
+    })
 
     return (
         <>
@@ -124,7 +121,7 @@ export default (props: FeatureProps) => {
                     className="appearance-none focus:outline-none w-full h-full bg-userInputBackground text-[24px] font-[200] overflow-hidden"
                     type="text" data-tauri-drag-region
                     value={searchString}
-                    onChange={(e: any) => setSearchString(e.target.value)}
+                    onChange={(e: any) => UpdateSearchString(e.target.value)}
                     autoFocus
                     onKeyDown={handleKeyIndput}
 
