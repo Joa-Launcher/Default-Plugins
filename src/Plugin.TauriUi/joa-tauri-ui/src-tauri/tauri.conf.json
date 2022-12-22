@@ -1,29 +1,29 @@
 {
-  "$schema": "..\\node_modules/@tauri-apps/cli\\schema.json",
   "build": {
+    "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run start",
-    "devPath": "http://localhost:3000",
-    "distDir": "../build",
-    "withGlobalTauri": true
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": false
   },
   "package": {
     "productName": "joa-tauri-ui",
-    "version": "0.1.0"
+    "version": "0.0.0"
   },
   "tauri": {
     "allowlist": {
-      "protocol": {
-        "asset": true,
-        "assetScope": ["**"]
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true
       },
-      "window": {
+      "globalShortcut": {
         "all": true
       },
       "http": {
         "all": true
       },
-      "globalShortcut": {
+      "window": {
         "all": true
       }
     },
@@ -42,7 +42,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "JoaLauncherUI",
+      "identifier": "com.tauri.dev",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -75,7 +75,7 @@
         "width": 600,
         "decorations": false,
         "skipTaskbar": true,
-        "visible": false
+        "visible": true
       }
     ]
   }
