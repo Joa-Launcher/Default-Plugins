@@ -3,8 +3,7 @@
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
     "devPath": "http://localhost:1420",
-    "distDir": "../dist",
-    "withGlobalTauri": false
+    "distDir": "../dist"
   },
   "package": {
     "productName": "joa-tauri-ui",
@@ -12,18 +11,17 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
+      "protocol": {
+        "asset": true,
+        "assetScope": ["**"]
       },
-      "globalShortcut": {
+      "window": {
         "all": true
       },
       "http": {
         "all": true
       },
-      "window": {
+      "globalShortcut": {
         "all": true
       }
     },
@@ -75,7 +73,7 @@
         "width": 600,
         "decorations": false,
         "skipTaskbar": true,
-        "visible": true
+        "visible": false
       }
     ]
   }

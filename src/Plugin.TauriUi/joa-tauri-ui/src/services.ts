@@ -1,10 +1,7 @@
-import { createApp } from "vue";
-import "./style.css";
-import App from "./App.vue";
-import {appWindow, PhysicalPosition, primaryMonitor} from "@tauri-apps/api/window";
-
-createApp(App).mount("#app");
-
+import {
+    appWindow,
+    PhysicalPosition, primaryMonitor
+} from "@tauri-apps/api/window";
 export const windowWidth = 600;
 export const windowHeight = 90;
 
@@ -23,4 +20,3 @@ export async function showWindow() {
 
     await appWindow.setFocus();
 }
-
