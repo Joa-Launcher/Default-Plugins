@@ -69,11 +69,18 @@
         "fullscreen": false,
         "height": 60,
         "resizable": false,
-        "title": "Joa",
+        "title": "Search",
+        "url": "/search",
         "width": 600,
         "decorations": false,
         "skipTaskbar": true,
-        "visible": false
+        "visible": true
+      },
+      {
+        "fullscreen": false,
+        "title": "Settings",
+        "url": "/settings",
+        "visible": true
       }
     ]
   }

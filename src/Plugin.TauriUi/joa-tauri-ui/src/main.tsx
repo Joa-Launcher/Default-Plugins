@@ -2,8 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./style.css";
 import SearchWrapper from "./components/SearchWrapper";
+import SettingsWrapper from "./components/SettingsWrapper";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+const router = () => {
+    if(window.location.pathname == "/settings"){
+        return <SettingsWrapper/>
+    }else if(window.location.pathname == "/search"){
+        return <SearchWrapper/>
+    }
+}
 
-    <SearchWrapper></SearchWrapper>
-);
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
+    .render(router());
+
