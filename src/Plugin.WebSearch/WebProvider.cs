@@ -7,10 +7,10 @@ namespace WebSearch;
 
 public class WebProvider : IProvider
 {
-    private readonly WebSearchSettings _settings;
+    private readonly IOptions<WebSearchSettings> _settings;
     private readonly HttpClient _client;
 
-    public WebProvider(WebSearchSettings settings)
+    public WebProvider(IOptions<WebSearchSettings> settings)
     {
         _settings = settings;
         _client = new HttpClient();
@@ -18,7 +18,7 @@ public class WebProvider : IProvider
 
     public List<SearchResult> GetSearchResults(string searchString)
     {
-        var searchEngine = _settings.SearchEngines.FirstOrDefault(x =>
+        var searchEngine = _settings.Value.SearchEngines.FirstOrDefault(x =>
             searchString.StartsWith(x.Prefix));
 
         if (searchEngine == null || searchString.Length < searchEngine.Prefix.Length)
