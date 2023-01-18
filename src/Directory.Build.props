@@ -5,7 +5,7 @@
     <AppendRuntimeIdentifierToOutputPath>flase</AppendRuntimeIdentifierToOutputPath>
  </PropertyGroup>
      <ItemGroup>
-        <PackageReference Include="JoaLauncher.Api" Version="1.0.14-gba869807d4">
+        <PackageReference Include="JoaLauncher.Api" Version="1.0.15-g7316ff1b48">
             <Private>false</Private>
             <ExcludeAssets>runtime</ExcludeAssets>
         </PackageReference>

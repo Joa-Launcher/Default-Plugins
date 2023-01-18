@@ -10,12 +10,12 @@ namespace ApplicationSearch;
 public class ApplicationSearch : ICache, IProvider, IPlugin
 {
     private readonly IJoaLogger _joaLogger;
-    private readonly IOptions<Settings> _settings;
+    private readonly Settings _settings;
     private readonly IIconHelper _iconHelper;
     private readonly List<SearchResult> _searchResults = new();
 
 
-    public ApplicationSearch(IJoaLogger joaLogger, IIconHelper iconHelper, IOptions<Settings> settings)
+    public ApplicationSearch(IJoaLogger joaLogger, IIconHelper iconHelper, Settings settings)
     {
         _joaLogger = joaLogger;
         _iconHelper = iconHelper;
@@ -30,7 +30,7 @@ public class ApplicationSearch : ICache, IProvider, IPlugin
         
         var paths = new List<string>();
 
-        foreach (var applicationFolder in _settings.Value.Folders)
+        foreach (var applicationFolder in _settings.Folders)
         {
             if (!Directory.Exists(applicationFolder.Path))
                 continue;
@@ -40,7 +40,7 @@ public class ApplicationSearch : ICache, IProvider, IPlugin
 
         foreach (var path in paths)
         {
-            if (!_settings.Value.Extensions.Any(x => path.EndsWith(x.Extension, StringComparison.OrdinalIgnoreCase))) continue;
+            if (!_settings.Extensions.Any(x => path.EndsWith(x.Extension, StringComparison.OrdinalIgnoreCase))) continue;
 
             var iconLocation = _iconHelper.CreateIconFromFileIfNotExists<ApplicationSearch>(path);
                 

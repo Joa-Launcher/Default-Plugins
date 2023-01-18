@@ -7,9 +7,9 @@ namespace WebSearch;
 [Plugin("Web Search", "Lets you search on the web!", "", "", "")]
 public class WebSearch : IPlugin
 {
-    private readonly IOptions<WebSearchSettings> _settings;
+    private readonly WebSearchSettings _settings;
 
-    public WebSearch(IOptions<WebSearchSettings> settings)
+    public WebSearch(WebSearchSettings settings)
     {
         _settings = settings;
     }
@@ -21,6 +21,6 @@ public class WebSearch : IPlugin
 
     private bool Condition(string searchString)
     {
-        return _settings.Value.SearchEngines.Any(x => searchString.StartsWith(x.Prefix));
+        return _settings.SearchEngines.Any(x => searchString.StartsWith(x.Prefix));
     }
 }
