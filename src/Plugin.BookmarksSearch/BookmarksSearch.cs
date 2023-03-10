@@ -20,11 +20,11 @@ public class BookmarksSearch : ICache, IProvider, IPlugin
         _joaLogger = joaLogger;
         _iconHelper = iconHelper;
     }
-    
+
     public void UpdateIndexes()
     {
         _searchResults.Clear();
-        
+
         var bookmarks = _setting.Browsers.Where(x => x.Enabled)
             .SelectMany(browser => browser.GetBookmarks(_joaLogger)
                 .Select(bookmark => (bookmark, browser)))
@@ -39,7 +39,7 @@ public class BookmarksSearch : ICache, IProvider, IPlugin
     }
 
     public List<SearchResult> GetSearchResults(string searchString)
-    { 
+    {
         return _searchResults;
     }
 

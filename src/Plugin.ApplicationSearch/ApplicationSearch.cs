@@ -21,29 +21,30 @@ public class ApplicationSearch : ICache, IProvider, IPlugin
         _iconHelper = iconHelper;
         _settings = settings;
     }
-    
+
     public void UpdateIndexes()
     {
         _joaLogger.Info("Updating Indexes");
-        
+
         _searchResults.Clear();
-        
+
         var paths = new List<string>();
 
         foreach (var applicationFolder in _settings.Folders)
         {
             if (!Directory.Exists(applicationFolder.Path))
                 continue;
-                
+
             paths.AddRange(Directory.GetFiles(applicationFolder.Path, "*", SearchOption.AllDirectories));
         }
 
         foreach (var path in paths)
         {
-            if (!_settings.Extensions.Any(x => path.EndsWith(x.Extension, StringComparison.OrdinalIgnoreCase))) continue;
+            if (!_settings.Extensions.Any(x => path.EndsWith(x.Extension, StringComparison.OrdinalIgnoreCase)))
+                continue;
 
             var iconLocation = _iconHelper.CreateIconFromFileIfNotExists<ApplicationSearch>(path);
-                
+
             _searchResults.Add(new ApplicationSearchResult
             {
                 Title = Path.GetFileNameWithoutExtension(path),

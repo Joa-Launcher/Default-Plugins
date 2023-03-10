@@ -25,9 +25,9 @@ public class WebProvider : IProvider
         {
             return new List<SearchResult>();
         }
-        
+
         searchString = searchString.Remove(0, searchEngine.Prefix.Length);
-        
+
         var searchResults = new List<SearchResult>
         {
             new WebSearchResult
@@ -45,15 +45,15 @@ public class WebProvider : IProvider
         }
 
         var httpResponse = _client.GetAsync(searchEngine.SuggestionUrl
-                .Replace("{{query}}",searchString))
+                .Replace("{{query}}", searchString))
             .GetAwaiter().GetResult();
 
         var jsonDocument = JsonDocument.Parse(httpResponse.Content.ReadAsStringAsync().GetAwaiter()
             .GetResult());
-        
+
         var suggestions = jsonDocument.RootElement[1].EnumerateArray().Select(x => x.ToString()).ToList();
-        
-        searchResults.AddRange(suggestions.Select(suggestion 
+
+        searchResults.AddRange(suggestions.Select(suggestion
                 => new WebSearchResult
                 {
                     Title = suggestion,
@@ -62,7 +62,7 @@ public class WebProvider : IProvider
                     Url = searchEngine.Url.Replace("{{query}}", HttpUtility.UrlEncode(suggestion))
                 })
             .ToList());
-        
+
         return searchResults;
     }
 }

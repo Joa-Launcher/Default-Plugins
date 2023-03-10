@@ -13,21 +13,21 @@ public class Settings : ISetting
         {
             Path = Path.Combine(
                 Environment.GetFolderPath(
-                    Environment.SpecialFolder.CommonApplicationData), 
-                @"Microsoft\Windows\Start Menu\Programs"), 
+                    Environment.SpecialFolder.CommonApplicationData),
+                @"Microsoft\Windows\Start Menu\Programs"),
             OperatingSystem = OperatingSystem.Windows
         },
         new Folder
         {
             Path = Path.Combine(
                 Environment.GetFolderPath(
-                    Environment.SpecialFolder.ApplicationData), 
-                @"Microsoft\Windows\Start Menu"), 
+                    Environment.SpecialFolder.ApplicationData),
+                @"Microsoft\Windows\Start Menu"),
             OperatingSystem = OperatingSystem.Windows
         },
         new Folder
         {
-            Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop), 
+            Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
             OperatingSystem = OperatingSystem.Windows
         }
     };
@@ -41,9 +41,9 @@ public class Settings : ISetting
         new FileExtension {Extension = ".exe"},
     };
 
-    [SettingProperty] 
+    [SettingProperty]
     public bool ShowFullFilePath { get; set; } = false;
 
-    [SettingProperty] 
+    [SettingProperty]
     public bool UseNativeIcons { get; set; } = true;
 }

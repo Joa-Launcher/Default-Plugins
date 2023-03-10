@@ -15,7 +15,7 @@ public class RepositoryProvider : IProvider<Repository>
         _repository = repository;
         _browserHelper = browserHelper;
     }
-    
+
     public List<SearchResult> GetSearchResults(string searchString)
     {
         var searchResults = new List<SearchResult>
@@ -54,7 +54,7 @@ public class LinkSearchResult : SearchResult
 {
     public required string Link { get; set; }
     public required IBrowserHelper BrowserHelper { get; set; }
-    
+
     public override void Execute(IExecutionContext executionContext)
     {
         BrowserHelper.OpenWebsite(Link);

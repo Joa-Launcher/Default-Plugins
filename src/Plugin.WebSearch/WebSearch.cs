@@ -13,7 +13,7 @@ public class WebSearch : IPlugin
     {
         _settings = settings;
     }
-    
+
     public void ConfigurePlugin(IPluginBuilder builder)
     {
         builder.AddGlobalProvider<WebProvider>(Condition);

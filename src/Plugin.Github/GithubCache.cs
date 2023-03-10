@@ -8,7 +8,7 @@ namespace Github;
 public class GithubCache : IAsyncCache
 {
     private readonly GitHubClient _github;
-    
+
     public GithubCache()
     {
         _github = new GitHubClient(new ProductHeaderValue("JoaLauncherGithubPlugin"));

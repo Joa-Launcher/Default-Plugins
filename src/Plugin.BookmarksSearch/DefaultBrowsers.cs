@@ -11,7 +11,7 @@ public static class DefaultBrowsers
         MacOsLocation = "/Google/Chrome/Default/Bookmarks",
         BrowserLocation = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk"
     };
-    
+
     public static Browser Firefox = new()
     {
         Name = "Firefox",
@@ -20,7 +20,7 @@ public static class DefaultBrowsers
         WindowsLocation = @"",
         MacOsLocation = ""
     };
-    
+
     public static Browser Brave = new()
     {
         Name = "Brave",
@@ -29,8 +29,8 @@ public static class DefaultBrowsers
         WindowsLocation = @"",
         MacOsLocation = ""
     };
-    
-    
+
+
     public static Browser Edge = new()
     {
         Name = "Edge",

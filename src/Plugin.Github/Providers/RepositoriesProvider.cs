@@ -12,7 +12,7 @@ public class RepositoriesProvider : IProvider
     {
         _githubCache = githubCache;
     }
-    
+
     public List<SearchResult> GetSearchResults(string searchString)
     {
         return _githubCache.Repositories;

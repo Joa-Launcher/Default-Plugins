@@ -8,7 +8,7 @@ public record Folder
     [Path]
     [SettingProperty]
     public string Path { get; init; } = default!;
-    
+
     [OperatingSystem]
     [SettingProperty]
     public OperatingSystem OperatingSystem { get; init; }

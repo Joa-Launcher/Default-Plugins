@@ -17,7 +17,7 @@ public class RepositorySearchResult : SearchResult
         Description = repository.Description;
         Icon = string.Empty;
     }
-    
+
     public override void Execute(IExecutionContext executionContext)
     {
         executionContext

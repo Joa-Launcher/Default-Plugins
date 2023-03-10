@@ -13,7 +13,7 @@ public class Browser
     [Enabler]
     [SettingProperty]
     public bool Enabled { get; set; }
-    
+
     [SettingProperty]
     [OperatingSystem(OperatingSystem.Windows)]
     public string WindowsLocation { get; set; } = null!;
@@ -28,20 +28,20 @@ public class Browser
 
     [SettingProperty]
     public string BrowserLocation { get; set; } = null!;
-    
+
     public List<Bookmark> GetBookmarks(IJoaLogger joaLogger)
     {
         var bookmarkLocation =
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + WindowsLocation;
-        
+
         if (!File.Exists(bookmarkLocation))
             return new List<Bookmark>();
 
         var content = File.ReadAllText(bookmarkLocation);
-        
+
         var bookmarksFile = JsonSerializer.Deserialize<FileModel>(content);
-        
-        if(bookmarksFile is null)
+
+        if (bookmarksFile is null)
             return new List<Bookmark>();
 
         return bookmarksFile.roots.bookmark_bar.children;

@@ -13,10 +13,10 @@ public class ColorConverter : IPlugin
         return false;
     }
 
-     public List<SearchResult> GetStrictSearchResults(string searchString)
-     {
+    public List<SearchResult> GetStrictSearchResults(string searchString)
+    {
         return new List<SearchResult>();
-     }
+    }
 
     private string HexToRgb(string hexColor)
     {
@@ -41,6 +41,6 @@ public class ColorConverter : IPlugin
 
     public void ConfigurePlugin(IPluginBuilder builder)
     {
-        
+
     }
 }
