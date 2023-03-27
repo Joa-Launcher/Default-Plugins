@@ -6,9 +6,7 @@ public static class DefaultBrowsers
     {
         Name = "Chrome",
         Enabled = true,
-        LinuxLocation = "",
-        WindowsLocation = @"\Google\Chrome\User Data\Default\Bookmarks",
-        MacOsLocation = "/Google/Chrome/Default/Bookmarks",
+        Location = @"\Google\Chrome\User Data\Default\Bookmarks",
         BrowserLocation = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk"
     };
 
@@ -16,18 +14,16 @@ public static class DefaultBrowsers
     {
         Name = "Firefox",
         Enabled = false,
-        LinuxLocation = "",
-        WindowsLocation = @"",
-        MacOsLocation = ""
+        Location = @"",
+        BrowserLocation = ""
     };
 
     public static Browser Brave = new()
     {
         Name = "Brave",
         Enabled = false,
-        LinuxLocation = "",
-        WindowsLocation = @"",
-        MacOsLocation = ""
+        Location = @"",
+        BrowserLocation = ""
     };
 
 
@@ -35,8 +31,7 @@ public static class DefaultBrowsers
     {
         Name = "Edge",
         Enabled = false,
-        LinuxLocation = "",
-        WindowsLocation = @"",
-        MacOsLocation = ""
+        Location = @"",
+        BrowserLocation = ""
     };
 }

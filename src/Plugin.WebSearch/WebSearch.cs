@@ -1,10 +1,8 @@
 ﻿using JoaLauncher.Api;
-using JoaLauncher.Api.Attributes;
 using JoaLauncher.Api.Plugin;
 
 namespace WebSearch;
 
-[Plugin("Web Search", "Lets you search on the web!", "", "", "")]
 public class WebSearch : IPlugin
 {
     private readonly WebSearchSettings _settings;

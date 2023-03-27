@@ -1,6 +1,5 @@
-﻿using JoaLauncher.Api;
-using JoaLauncher.Api.Attributes;
-using OperatingSystem = JoaLauncher.Api.Enums.OperatingSystem;
+﻿using JoaLauncher.Api.Attributes;
+using JoaLauncher.Api.Plugin;
 
 namespace ApplicationSearch;
 
@@ -15,7 +14,6 @@ public class Settings : ISetting
                 Environment.GetFolderPath(
                     Environment.SpecialFolder.CommonApplicationData),
                 @"Microsoft\Windows\Start Menu\Programs"),
-            OperatingSystem = OperatingSystem.Windows
         },
         new Folder
         {
@@ -23,12 +21,10 @@ public class Settings : ISetting
                 Environment.GetFolderPath(
                     Environment.SpecialFolder.ApplicationData),
                 @"Microsoft\Windows\Start Menu"),
-            OperatingSystem = OperatingSystem.Windows
         },
         new Folder
         {
             Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-            OperatingSystem = OperatingSystem.Windows
         }
     };
 

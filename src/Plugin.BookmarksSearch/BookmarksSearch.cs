@@ -1,12 +1,10 @@
 ﻿using JoaLauncher.Api;
-using JoaLauncher.Api.Attributes;
 using JoaLauncher.Api.Injectables;
 using JoaLauncher.Api.Plugin;
 using JoaLauncher.Api.Providers;
 
 namespace BookmarksSearch;
 
-[Plugin("Bookmark Search", "", "", "", "")]
 public class BookmarksSearch : ICache, IProvider, IPlugin
 {
     private readonly Setting _setting;

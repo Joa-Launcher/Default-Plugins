@@ -1,38 +1,27 @@
 ﻿using System.Text.Json;
 using JoaLauncher.Api.Attributes;
 using JoaLauncher.Api.Injectables;
-using OperatingSystem = JoaLauncher.Api.Enums.OperatingSystem;
 
 namespace BookmarksSearch;
 
 public class Browser
 {
     [SettingProperty]
-    public string Name { get; set; } = null!;
+    public required string Name { get; set; } = null!;
 
-    [Enabler]
     [SettingProperty]
     public bool Enabled { get; set; }
 
     [SettingProperty]
-    [OperatingSystem(OperatingSystem.Windows)]
-    public string WindowsLocation { get; set; } = null!;
-
+    public required string Location { get; set; } = null!;
+    
     [SettingProperty]
-    [OperatingSystem(OperatingSystem.MacOS)]
-    public string MacOsLocation { get; set; } = null!;
-
-    [SettingProperty]
-    [OperatingSystem(OperatingSystem.Linux)]
-    public string LinuxLocation { get; set; } = null!;
-
-    [SettingProperty]
-    public string BrowserLocation { get; set; } = null!;
+    public required string BrowserLocation { get; set; } = null!;
 
     public List<Bookmark> GetBookmarks(IJoaLogger joaLogger)
     {
         var bookmarkLocation =
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + WindowsLocation;
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Location;
 
         if (!File.Exists(bookmarkLocation))
             return new List<Bookmark>();

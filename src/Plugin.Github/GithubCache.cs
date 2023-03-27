@@ -1,5 +1,6 @@
 ﻿using Github.SearchResults;
 using JoaLauncher.Api;
+using JoaLauncher.Api.Plugin;
 using Octokit;
 
 namespace Github;

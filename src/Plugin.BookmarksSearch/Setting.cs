@@ -1,5 +1,5 @@
-﻿using JoaLauncher.Api;
-using JoaLauncher.Api.Attributes;
+﻿using JoaLauncher.Api.Attributes;
+using JoaLauncher.Api.Plugin;
 
 namespace BookmarksSearch;
 

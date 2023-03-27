@@ -1,5 +1,4 @@
 ﻿using JoaLauncher.Api;
-using JoaLauncher.Api.Enums;
 using JoaLauncher.Api.Providers;
 
 namespace Github.Providers;

@@ -1,11 +1,9 @@
 using System.Drawing;
 using JoaLauncher.Api;
-using JoaLauncher.Api.Attributes;
 using JoaLauncher.Api.Plugin;
 
 namespace ColorConverter;
 
-[Plugin("Color Converter", "", "", "", "")]
 public class ColorConverter : IPlugin
 {
     public bool Validator(string searchString)

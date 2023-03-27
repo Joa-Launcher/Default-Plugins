@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using JoaLauncher.Api;
-using JoaLauncher.Api.Injectables;
 
 namespace ApplicationSearch;
 

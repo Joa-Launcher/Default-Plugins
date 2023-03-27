@@ -1,12 +1,10 @@
 ﻿using JoaLauncher.Api;
-using JoaLauncher.Api.Attributes;
 using JoaLauncher.Api.Injectables;
 using JoaLauncher.Api.Plugin;
 using JoaLauncher.Api.Providers;
 
 namespace ApplicationSearch;
 
-[Plugin("Application Search", "", "", "", "")]
 public class ApplicationSearch : ICache, IProvider, IPlugin
 {
     private readonly IJoaLogger _joaLogger;
