@@ -11,8 +11,7 @@ public class ApplicationSearch : ICache, IProvider, IPlugin
     private readonly Settings _settings;
     private readonly IIconHelper _iconHelper;
     private readonly List<SearchResult> _searchResults = new();
-
-
+    
     public ApplicationSearch(IJoaLogger joaLogger, IIconHelper iconHelper, Settings settings)
     {
         _joaLogger = joaLogger;
@@ -60,6 +59,10 @@ public class ApplicationSearch : ICache, IProvider, IPlugin
 
     public void ConfigurePlugin(IPluginBuilder builder)
     {
-        builder.AddGlobalProvider<ApplicationSearch>();
+        builder.AddGlobalProvider<ApplicationSearch>()
+            .AddSaveAction(nameof(Settings.Folders), (Settings s) =>
+            {
+                UpdateIndexes();
+            });
     }
 }
